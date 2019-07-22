@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Contratación">
+				<p:submenu label="PreContractual">
+					<p:menuitem value="Estudios Previos" action="#{menuBean.generacionPMPTotal()}"
+						icon="ui-icon-document" ajax="true"
+						disabled="#{menuBean.disabledMenuAdmin()}" />
+					<p:separator />
+					<p:menuitem value="Corrección Manual"
+						action="#{menuBean.correccionManual()}" icon="ui-icon-document"
+						ajax="true" disabled="#{menuBean.disabledMenuAdmin()}" />
+				</p:submenu>
+			</p:submenu>
+			<p:submenu label="ink">
+				<p:menuitem value="ink "
+					action="#{menuBean.inconsistenciasGenerales()}"
+					icon="ui-icon-document" ajax="true" disabled= "#{menuBean.disabledMenuAdmin()}"/>
+			</p:submenu>
+			<p:submenu label="ink">
+				<p:menuitem value="ink"
+					action="#{menuBean.parametros()}"
+					icon="ui-icon-document" ajax="true" disabled= "#{menuBean.disabledMenuAdminRuaf()}"/>
+			</p:submenu>
+		</p:menubar>
+	</h:form>
+</ui:composition>

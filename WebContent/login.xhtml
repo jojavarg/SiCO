@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/templates/plantilla_login.xhtml">
+
+
+
+	<ui:define name="content">
+
+
+
+		<h:form style="width:70%; background-color:#fcfcfc">
+			<div class="caja_pequ fl" style="margin: auto; margin-top: 30px;">
+				<div id="div_form_arriba" class="pequ">
+					<div class="titulo_form_arriba">Ingreso de Usuario</div>
+				</div>
+				<div id="div_form_medio" class="pequ">
+					<div class="mensajes_error">
+						<div class="mensajes_error_background">
+							<div class="warn_texto">
+								Los campos marcados con asterísco (<span class="asterisco">*</span>)
+								son obligatorios.
+							</div>
+							<p:messages autoUpdate="true" />
+						</div>
+					</div>
+					<h:panelGrid id="grid" class="login_text" columns="4" cellpadding="5" style="float: right;">
+						<p:outputLabel for="username" value="Usuario:* " />
+						<p:inputText id="username" value="#{loginBean.username}"/>
+						<p:message for="username" />
+						<br />
+						<br />
+						<p:outputLabel for="password" value="Contraseña:* " />
+						<p:password id="password" value="#{loginBean.password}" />
+						<p:message for="password" />
+						<br />
+						<br />
+						<p:outputLabel for="database" value="Base de datos:* " />
+						<h:selectOneMenu id="database" value = "#{loginBean.database}"> 
+						   <f:selectItem itemValue = "1" itemLabel = "sicapitalpru" /> 
+						</h:selectOneMenu>
+						<p:message for="database" />
+						<br />
+						<br />
+					</h:panelGrid>
+					<p:commandButton id="LinkButton6" value="ENTRAR" update="grid"
+						icon="ui-icon-check"
+						action="#{loginBean.usuarioSesion()}"
+						validateClient="true"
+						style="float: right;margin: 30px;" />
+				</div>
+				<div id="div_form_abajo" class="pequ"></div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

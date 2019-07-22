@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="../template/plantilla.xhtml">
+
+	<ui:define name="content">
+		<h:form id="parametro">
+			<p:breadCrumb>
+				<p:menuitem value="Home" />
+				<p:menuitem value="Parámetros"/>
+			</p:breadCrumb>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+
+			<p:panel id="panel" header="Parámetros" style="margin-bottom:20px">
+				<h:panelGrid class="gridcontent" columns="2" cellpadding="5">
+					<h:outputLabel for="selectedItem" value="Tipo de Archivo:" />
+					<p:selectOneMenu id="selectedItem"
+						value="#{parametrosBean.selectedItem}" label="Archivo"
+						multiple="false" filter="true" filterMatchMode="startsWith"
+						panelStyle="width:250px">
+						<f:selectItem itemLabel="Seleccione..." itemValue="" />
+						<f:selectItems value="#{parametrosBean.items}" />
+						<p:ajax event="change"
+							listener="#{parametrosBean.obtienenParametros}"
+							update="rp_Numero_Ident_Entid_Reporta, rp_Codigo_Entidad, rp_Nombre_Representante_Legal, rp_Tipo_Separador, rp_Fecha_Inicio_Periodo, rp_Fecha_Fin_Periodo, rp_Email_Para, rp_Email_Usuario_Login, rpg_Valor_Inicial" />
+						<f:converter
+							converterId="co.gov.colpensiones.converter.StringConverter" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="rp_Numero_Ident_Entid_Reporta"
+						value="Entidad a la que se reporta:" />
+					<p:inputText id="rp_Numero_Ident_Entid_Reporta"
+						value="#{parametrosBean.rp_Numero_Ident_Entid_Reporta}"
+						 size="12" maxsize="12">
+						<f:converter
+							converterId="co.gov.colpensiones.converter.StringConverter" />
+					</p:inputText>
+
+					<p:outputLabel for="rp_Codigo_Entidad" value="Código de la Administradora:" />
+					<p:inputText id="rp_Codigo_Entidad"
+						value="#{parametrosBean.rp_Codigo_Entidad}"
+						size="6" maxsize="6">
+						<f:converter
+							converterId="co.gov.colpensiones.converter.StringConverter" />
+					</p:inputText>
+
+					<p:outputLabel for="rp_Nombre_Representante_Legal"
+						value="Nombre de Representante Legal:" />
+					<p:inputText id="rp_Nombre_Representante_Legal"
+						value="#{parametrosBean.rp_Nombre_Representante_Legal}"
+					   size="60">
+						<f:converter
+							converterId="co.gov.colpensiones.converter.StringConverter" />
+					</p:inputText>
+
+					<p:outputLabel for="rp_Tipo_Separador" value="Tipo de Separador:" />
+					<p:inputText id="rp_Tipo_Separador"
+						value="#{parametrosBean.rp_Tipo_Separador}"
+						size="1" maxsize="1">
+						<f:converter
+							converterId="co.gov.colpensiones.converter.StringConverter" />
+					</p:inputText>
+
+					<p:outputLabel for="rp_Fecha_Inicio_Periodo"
+						value="Fecha de Inicio Período:" />
+					<p:calendar id="rp_Fecha_Inicio_Periodo" value="#{parametrosBean.rp_Fecha_Inicio_Periodo}" pattern="yyyy-MM-dd"/>
+
+					<p:outputLabel for="rp_Fecha_Fin_Periodo"
+						value="Fecha de Fin Período:" />
+					<p:calendar id="rp_Fecha_Fin_Periodo" value="#{parametrosBean.rp_Fecha_Fin_Periodo}" pattern="yyyy-MM-dd"/>
+
+					<p:outputLabel for="rp_Email_Para" value="Email Para:" />
+					<p:inputText id="rp_Email_Para"
+						value="#{parametrosBean.rp_Email_Para}" size="60">
+						<f:converter
+							converterId="co.gov.colpensiones.converter.StringConverter" />
+					</p:inputText>
+
+					<p:outputLabel for="rp_Email_Usuario_Login"
+						value="Email Usuario Login:" />
+					<p:inputText id="rp_Email_Usuario_Login"
+						value="#{parametrosBean.rp_Email_Usuario_Login}"
+						size="60">
+						<f:converter
+							converterId="co.gov.colpensiones.converter.StringConverter" />
+					</p:inputText>
+
+					<p:outputLabel for="rpg_Valor_Inicial"
+						value="Tiempo de ejecucion tarea: (min)" />
+					<p:inputText id="rpg_Valor_Inicial"
+						value="#{parametrosBean.rpg_Valor_Inicial}">
+						<f:converter converterId="javax.faces.Integer" />
+					</p:inputText>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</h:panelGrid>
+				<h:panelGrid class="gridbutton" columns="2" cellpadding="5">
+					<p:commandButton value="Actualizar" id="actualiza"
+						actionListener="#{parametrosBean.actualizaParametros}"
+						update="panel,growl" ajax="true">
+						<p:confirm header="Confirmación"
+							message="Está seguro de actualizar los parámetros de configuración?"
+							icon="ui-icon-alert" />
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

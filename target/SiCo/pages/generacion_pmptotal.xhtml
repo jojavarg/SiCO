@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="../template/plantilla.xhtml">
+
+	<ui:define name="content">
+		<h:form id="pmptotal">
+			<p:breadCrumb>
+				<p:menuitem value="Home" />
+				<p:menuitem value="Generación" />
+				<p:menuitem value="PMP Total" />
+			</p:breadCrumb>
+			<p:growl id="growl" showDetail="true" sticky="true" />
+			<p:panel id="panel" header="PMP Total" style="margin-bottom:20px">
+				<h:panelGrid class="gridcontent" columns="2" cellpadding="5">
+					<p:outputLabel for="dateEnd" value="Fecha Fin:" />
+					<p:calendar id="dateEnd" value="#{generacionPMPTotalBean.dateEnd}"
+						showOn="button" navigator="true" required="true"
+						maxdate="#{generacionPMPTotalBean.currentDate}" pattern="yyyy-MM-dd"/>
+					<h:outputLabel for="items" value="Items:" />
+					<p:selectCheckboxMenu id="items"
+						value="#{generacionPMPTotalBean.selectedItems}" label="Items"
+						multiple="true" filter="true" filterMatchMode="startsWith"
+						panelStyle="width:250px" required="true">
+						<f:selectItems value="#{generacionPMPTotalBean.items}" />
+					</p:selectCheckboxMenu>
+				</h:panelGrid>
+				<h:panelGrid class="gridbutton" columns="2" cellpadding="5">
+					<p:commandButton value="Procesar" id="procesar"
+						actionListener="#{generacionPMPTotalBean.generatorMaestroPMPTotal()}"
+						update="panel,growl" ajax="true" />
+					<p:commandButton value="Cancelar" id="cancelar" update="panel"
+						process="@this">
+						<p:resetInput target="panel" />
+					</p:commandButton>
+				</h:panelGrid>
+			</p:panel>
+			<!--<p:blockUI block="pmptotal" trigger="procesar">
+        			PROCESANDO...<br />
+				<p:graphicImage url="images/ajaxloadingbar.gif" />
+			</p:blockUI>-->
+		</h:form>
+	</ui:define>
+</ui:composition>

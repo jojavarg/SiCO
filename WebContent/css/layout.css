@@ -1,0 +1,159 @@
+@charset "utf-8";
+/*
+@import url("framework.css");
+@import url("mediaqueries.css");
+@import url("elements.css");*/
+
+
+html{overflow-y:scroll;}
+html, body{margin:0; padding:0; font-size:13px; font-family: Arial, Helvetica, Verdana; }
+
+.bold{font-weight:bold;}
+.center{text-align:center;}
+.uppercase{text-transform:uppercase;}
+.capitalise{text-transform:capitalize;}
+.nemo{display:none;}
+.btn{display:inline-block; padding:10px 30px 12px; text-transform:uppercase; border-radius:5px;}
+
+.clear, .group{display:block;}
+.clear::before, .clear::after, .group::before, .group::after{display:table; content:"";}
+.clear, .clear::after, .group, .group::after{clear:both;}
+
+a{outline:none; text-decoration:none; }
+
+.flLeft, .imgl{float:left;}
+.flRight, .imgr{float:right;}
+.imgl{margin:0 15px 10px 0; clear:left;}
+.imgr{margin:0 0 10px 15px; clear:right;}
+
+img{width:auto !important; max-width:100%; height:auto; margin:0; padding:0; border:none; line-height:normal; vertical-align:middle;}
+
+
+/* Generalidades
+--------------------------------------------------------------------------------------------------------------- 
+h1, h2, h3, h4, h5, h6, .heading{font-stretch: condensed; font-family: "Arial Narrow", Arial, sans-serif;}
+h1, h2, h3, h4, h5, h6, .heading{margin:0 0 10px 0; font-size:1.5em; line-height:normal; font-weight:normal;}*/
+
+hr{display:block; width:100%; height:1px; border:solid; border-width:1px 0 0 0;}
+
+.wrapper{display:block; width:100%; margin:0; padding:0; text-align:left; word-wrap:break-word;}
+
+
+#contentRow, #s4-workspace{overflow-x:hidden; overflow-y:hidden}
+#contentRow{margin-top:-7px}
+
+/* HTML 5 Overrides
+--------------------------------------------------------------------------------------------------------------- */
+address, article, aside, figcaption, figure, footer, header, main, nav, section{display:block; margin:0; padding:0;}
+
+
+/* Formas
+--------------------------------------------------------------------------------------------------------------- */
+form, fieldset, legend{margin:0; padding:0; border:none;}
+
+label{margin-bottom:5px;}
+ul{list-style:none; margin:0; padding:0}
+
+
+/* Filas
+--------------------------------------------------------------------------------------------------------------- */
+.row0, .row0 a{color:#fff}
+.row1, .row1 a{position:relative; z-index:2}
+.row2, .row2 a{}
+
+
+
+/* Colores
+--------------------------------------------------------------------------------------------------------------- */
+.white{color:#fff}
+.azul{color:#2b4560}
+.cyan{color:#4470b7}
+.amarillo{color:#ffaa00}
+.mandarina{color:#ff8800}
+.naranja{color:#ff6600}
+
+
+
+
+.bgWhite{background-color:#fff}
+.bgAzul{background-color:#2b4560}
+.bgCyan{background-color:#4470b7}
+.bgAmarillo{background-color:#ffaa00}
+.bgMandarina{background-color:#ff8800}
+.bgNaranja{background-color:#ff6600}
+
+
+
+
+.gradTop{
+	background: #e7e7e7; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#e7e7e7, #fafafa); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#e7e7e7, #fafafa); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#e7e7e7, #fafafa); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#e7e7e7, #fafafa); /* Standard syntax */}
+
+.gradGrey{
+	background: #000; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(left,rgba(0,0,0,0.6),rgba(0,0,0,0),rgba(0,0,0,0.6)); /*Safari 5.1-6*/
+	background: -o-linear-gradient(right,rgba(0,0,0,0.6),rgba(0,0,0,0),rgba(0,0,0,0.6)); /*Opera 11.1-12*/
+	background: -moz-linear-gradient(right,rgba(0,0,0,0.6),rgba(0,0,0,0),rgba(0,0,0,0.6)); /*Fx 3.6-15*/
+	background: linear-gradient(to right, rgba(0,0,0,0.6),rgba(0,0,0,0),rgba(0,0,0,0.6)); /*Standard*/}
+	
+.shadow{box-shadow:0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 15px 0 rgba(0, 0, 0, 0.8);}
+
+
+/* Header o Cabezote
+--------------------------------------------------------------------------------------------------------------- */
+#header #hgroup{display:block; width:100%;  }
+#header{padding:.8%; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; }
+
+#header #logo{display: block; float: left; width: auto; clear: left; margin: 20px 0 0 0; }
+#header #logo img{max-width:200px}
+
+#header #logoAlcaldia{display: block; float: right; width: auto; clear: right }
+#header #logoAlcaldia img{max-height:120px}
+
+#header .titulo{ font-stretch: condensed; font-family: "Arial Narrow", Arial, sans-serif; font-size:1.35em; display: block; float:left; margin:30px 0 0 15%; text-align: center; width: auto; color:#0d4255}
+
+.banner{ background-color:#bac6e4; }
+.banner img{ vertical-align:bottom}
+
+.banner {background: url('foto.jpg') no-repeat left center; background-size: cover; height:390px}
+
+
+/* Navegación Global
+--------------------------------------------------------------------------------------------------------------- */
+
+
+
+/* Contenido
+--------------------------------------------------------------------------------------------------------------- */
+#container{}
+
+#sevicios{}
+#sevicios h2{ color:#fff; font-size:1.35em}
+#sevicios .border{border-top:1px solid #fff; margin-top:5px; padding-bottom:10px}
+#sevicios .oneHalf{padding:40px 18px 35px 18px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+#sevicios a h2:hover{ color:#2b4560 }
+
+
+#aplicaciones .icon{ max-width:50px}
+#aplicaciones .arrow{ max-width:25px; position:relative; top:-13px}
+#aplicaciones h1{ color:#fff; position:relative; top:11px; left:10px; margin:0}
+#aplicaciones p{ color:#fff}
+#aplicaciones .oneThree{padding:20px 18px 20px 18px; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box;}
+
+#aplicaciones .bgNaranja:hover{ background-color:rgb(204,102,51);}
+#aplicaciones .bgMandarina:hover{ background-color:rgb(204,102,0);}
+#aplicaciones .bgAmarillo:hover{ background-color:rgb(204,153,51);}
+
+
+/* Footer
+--------------------------------------------------------------------------------------------------------------- */
+#footer{font-weight: bold; color: #2b4560; margin: 20px 0;}
+#footer .icon{ max-width: 33px}
+#footer a{color: #2b4560; }
+#footer a:hover{color: #548ce2; }
+
+
+

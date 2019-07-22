@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:DatabaseConfiguration
+	xmlns:tns="http://www.example.org/DatabaseConfiguration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/DatabaseConfiguration DatabaseConfiguration.xsd ">
+	<tns:DriverClass>oracle.jdbc.driver.OracleDriver</tns:DriverClass>
+    <tns:ConnectionURL>jdbc:oracle:thin:@192.168.100.78:1521:sicapitalpru</tns:ConnectionURL>
+	<tns:User></tns:User>
+	<tns:Password></tns:Password> 
+	<tns:MetadataQueries>
+		<tns:MetadataQuery>
+			<tns:QueryName>VERIFICAR_USUARIO</tns:QueryName>
+			<tns:CommandText> SELECT usuario from CO_USUARIOS where usuario LIKE UPPER(?)
+			</tns:CommandText>
+			<tns:Parameters>
+			<tns:Parameter>
+					<tns:ParameterName>@usuario</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>50</tns:ParameterScale>
+				</tns:Parameter>
+			</tns:Parameters>
+		</tns:MetadataQuery>
+
+	<tns:MetadataQuery>
+		<tns:QueryName>OBTENER_LINEAS</tns:QueryName>
+		<tns:CommandText> SELECT DISTINCT pd.nro_orden , pd.objeto
+			FROM PR_COMPANIA c,
+			PR_UNIDAD_EJECUTORA ue,
+			RH_DEPENDENCIAS d,
+			RH_PERSONAS p,
+			BINTABLAS bt,
+			CO_PLAN_DET pd,
+			CO_VIABIL_X_LINEA_PLAN vlp
+			WHERE c.codigo_compania = ue.codigo_compania
+			AND ue.codigo = pd.unidad_ejecutora
+			AND ue.codigo_compania = d.codigo_compania
+			AND d.codigo_dependencia = pd.area_origen
+			AND d.codigo_compania = pd.codigo_compania
+			AND p.interno_persona(+) = pd.contacto
+			AND bt.argumento = pd.proceso_seleccion
+			AND pd.id_det_plan = vlp.id_det_plan
+			AND pd.ano = vlp.año
+			AND pd.codigo_compania = vlp.codigo_compañia
+			AND pd.id_plan_contratacion = vlp.id_plan_contratacion
+			AND
+			NVL(valor_tot_viabilizado,0)-CO_Fn_Tot_Compr_Viab_Linea(pd.codigo_compania,pd.ano,vlp.csc_nro_viabilidad)
+			> 0
+			AND pd.unidad_ejecutora = NVL('01',pd.unidad_ejecutora)
+			AND pd.ano =
+			NVL(2018,SHD_PG_BINTABLAS.FN_Buscar_rdf('VIG_EJEC','CONTRATACION','VIGENCIA',TO_CHAR(SYSDATE,'DD/MM/YYYY')))
+			AND pd.codigo_compania = 113
+			AND pd.fecha_registro BETWEEN vig_inicial
+			AND NVL(vig_final,pd.fecha_registro)
+			AND SYSDATE BETWEEN d.fecha_desde
+			AND NVL(d.fecha_hasta,SYSDATE)
+			AND bt.nombre = 'PROCESO_SELECCION'
+			AND bt.grupo = 'CONTRATACION'
+			ORDER BY 2
+		</tns:CommandText>
+		</tns:MetadataQuery>
+
+		<tns:MetadataQuery>
+			<tns:QueryName>OBTENER_DEPENDECIAS</tns:QueryName>
+			<tns:CommandText>
+				SELECT descripcion, codigo_dependencia,codigo_dependencia dep2,ubicacion
+				FROM rh_dependencias
+				WHERE codigo_compania = '113' 
+				AND SYSDATE BETWEEN FECHA_DESDE AND NVL(FECHA_HASTA,SYSDATE)
+			</tns:CommandText>
+		</tns:MetadataQuery>
+
+
+
+	<tns:MetadataQuery>
+		<tns:QueryName>OBTENER_MODALIDADES</tns:QueryName>
+		<tns:CommandText>
+			SELECT argumento, resultado 
+			FROM BINTABLAS
+			WHERE NOMBRE = 'PROCESO_SELECCION'
+				AND GRUPO = 'CONTRATACION'
+				AND VIG_INICIAL &lt;= to_date(?,'DD/MM/YY')
+				AND (VIG_FINAL = to_date(?,'DD/MM/YY') OR VIG_FINAL IS NULL)
+			ORDER BY RESULTADO
+		</tns:CommandText>
+		<tns:Parameters>
+			<tns:Parameter>
+				<tns:ParameterName>@fechaInicial</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>50</tns:ParameterScale>
+			</tns:Parameter>
+			<tns:Parameter>
+				<tns:ParameterName>@fechaFinal</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>50</tns:ParameterScale>
+			</tns:Parameter>
+		</tns:Parameters>
+	</tns:MetadataQuery>
+	
+	
+			<tns:MetadataQuery>
+			<tns:QueryName>OBTENER_VIGENCIA</tns:QueryName>
+			<tns:CommandText>
+				select NVL(2019,SHD_PG_BINTABLAS.FN_Buscar_rdf('VIG_EJEC','CONTRATACION','VIGENCIA',TO_CHAR(SYSDATE,'DD/MM/YYYY'))) 
+				from dual
+			</tns:CommandText>
+		</tns:MetadataQuery>
+		
+		
+		
+
+	
+	
+	
+	
+	
+		<tns:MetadataQuery>
+		<tns:QueryName>OBTENER_CONTACTO</tns:QueryName>
+			<tns:CommandText>
+				SELECT distinct a.interno_persona,a.nombres || ' ' ||a.primer_apellido || ' ' || a.segundo_apellido as nombre
+				FROM rh_personas a,
+				rh_funcionario b,
+				RH_POSICIONES C
+				WHERE a.interno_persona = b.personas_interno
+				AND b.estado_funcionario = 1
+				AND B.personas_interno = C.FUNCIONARIO
+				AND C.CODIGO_DEPENDENCIA = '0038'
+				AND C.CODIGO_compania = 113 
+				UNION
+				SELECT -interno_proveedor, razon_social
+				FROM co_proveedor
+				WHERE EXISTS (SELECT 1
+				FROM co_usuarios
+				WHERE -interno_persona = co_proveedor.interno_proveedor
+				AND estado = '0038'||'-DIRECTOR')
+				ORDER BY 2
+			</tns:CommandText>
+	</tns:MetadataQuery>
+
+	<tns:MetadataQuery>
+		<tns:QueryName>CARGAR_ESTUDIO_PREVIO</tns:QueryName>
+			<tns:CommandText>
+				SELECT vlp.csc_nro_viabilidad , 
+					pd.nro_orden , 
+					pd.codigo_compania , 
+					c.nombre nombre_compania , 
+					pd.unidad_ejecutora , 
+					ue.descripcion desc_UE , 
+					pd.area_origen , 
+					d.descripcion desc_AO , 
+					bt.argumento cod_mod_selecc , 
+					bt.resultado desc_mod_selecc , 
+					pd.objeto , 
+					NVL(pd.valor_tot_viabilizado,0)-CO_Fn_Tot_Compr_Viab_Linea(pd.codigo_compania,pd.ano,vlp.csc_nro_viabilidad) valdisp,
+					pd.contacto , 
+					p.nombres||' '||p.primer_apellido||' '||p.segundo_apellido nombre_contacto, 
+					NVL(pd.meses_ejecucion,pd.plazo_ejecucion) plazo_ejecucion, 
+					NVL(pd.tipo_plazo_ejecucion,'M') tipo_plazo_ejecucion 
+				FROM PR_COMPANIA c,
+					PR_UNIDAD_EJECUTORA ue,
+					RH_DEPENDENCIAS d,
+					RH_PERSONAS p,
+					BINTABLAS bt,
+					CO_PLAN_DET pd,
+					CO_VIABIL_X_LINEA_PLAN vlp
+				WHERE c.codigo_compania = ue.codigo_compania
+					AND ue.codigo = pd.unidad_ejecutora
+					AND ue.codigo_compania = d.codigo_compania
+					AND d.codigo_dependencia = pd.area_origen
+					AND d.codigo_compania = pd.codigo_compania
+					AND p.interno_persona(+) = pd.contacto
+					AND bt.argumento = pd.proceso_seleccion
+					AND pd.id_det_plan = vlp.id_det_plan
+					AND pd.ano = vlp.año
+					AND pd.codigo_compania = vlp.codigo_compañia
+					AND pd.id_plan_contratacion = vlp.id_plan_contratacion
+					AND	NVL(valor_tot_viabilizado,0)-CO_Fn_Tot_Compr_Viab_Linea(pd.codigo_compania,pd.ano,vlp.csc_nro_viabilidad) > 0
+					AND pd.unidad_ejecutora = NVL('01',pd.unidad_ejecutora)
+					AND pd.ano = NVL(2018,SHD_PG_BINTABLAS.FN_Buscar_rdf('VIG_EJEC','CONTRATACION','VIGENCIA',TO_CHAR(SYSDATE,'DD/MM/YYYY')))
+					AND pd.codigo_compania = 113
+					AND pd.fecha_registro BETWEEN vig_inicial
+					AND NVL(vig_final,pd.fecha_registro)
+					AND SYSDATE BETWEEN d.fecha_desde
+					AND NVL(d.fecha_hasta,SYSDATE)
+					AND bt.nombre = 'PROCESO_SELECCION'
+					AND bt.grupo = 'CONTRATACION'
+					AND pd.nro_orden LIKE ?
+				ORDER BY 2
+			</tns:CommandText>
+		<tns:Parameters>
+			<tns:Parameter>
+				<tns:ParameterName>@linea</tns:ParameterName>
+				<tns:ParameterType>VARCHAR</tns:ParameterType>
+				<tns:ParameterScale>50</tns:ParameterScale>
+			</tns:Parameter>
+		</tns:Parameters>
+	</tns:MetadataQuery>
+
+		<tns:MetadataQuery>
+			<tns:QueryName>Parametros_NameFileRuaf</tns:QueryName>
+			<tns:CommandText> select top 1 *
+            from RUAF_Parametros_ 
+            where rp_Tipo_Archivo = ? AND Rp_Modulo_Informacion = ?
+            order by rp_Parametros_Id desc
+			</tns:CommandText>
+			<tns:Parameters>
+			<tns:Parameter>
+					<tns:ParameterName>@Rp_Modulo_Informacion</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>5</tns:ParameterScale>
+				</tns:Parameter>
+				<tns:Parameter>
+					<tns:ParameterName>@rp_Tipo_Archivo</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>5</tns:ParameterScale>
+				</tns:Parameter>
+			</tns:Parameters>
+		</tns:MetadataQuery>
+	
+
+		<tns:MetadataQuery>
+			<tns:QueryName>ConsultaGralArchivo</tns:QueryName>
+			<tns:CommandText>EXEC RUAF_Data_Archivo_General (?, ?)
+			</tns:CommandText>
+			<tns:Parameters>
+				<tns:Parameter>
+					<tns:ParameterName>@tipoarchivo</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>5</tns:ParameterScale>
+				</tns:Parameter>
+				<tns:Parameter>
+					<tns:ParameterName>@Activo</tns:ParameterName>
+					<tns:ParameterType>INTEGER</tns:ParameterType>
+					<tns:ParameterScale>1</tns:ParameterScale>
+				</tns:Parameter>
+			</tns:Parameters>
+		</tns:MetadataQuery>
+
+
+		<tns:MetadataQuery>
+			<tns:QueryName>Ruaf_Final_Control_ejecucion</tns:QueryName>
+			<tns:CommandText>PR_ReiniciaControlEjecucionRUAF(?)</tns:CommandText>
+			<tns:CommandType>StoredProcedure</tns:CommandType>
+			<tns:Parameters>
+				<tns:Parameter>
+					<tns:ParameterName>@ip_maquina</tns:ParameterName>
+					<tns:ParameterType>VARCHAR</tns:ParameterType>
+					<tns:ParameterScale>16</tns:ParameterScale>
+				</tns:Parameter>
+			</tns:Parameters>
+		</tns:MetadataQuery>		
+	</tns:MetadataQueries>
+</tns:DatabaseConfiguration>

@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="../template/plantilla.xhtml">
+
+	<ui:define name="content">
+		<h:form id="correccionmanual">
+			<p:breadCrumb>
+				<p:menuitem value="Home" />
+				<p:menuitem value="Generación" />
+				<p:menuitem value="Correción Manual" />
+			</p:breadCrumb>
+			<p:panel id="panel" header="Correción Manual"
+				style="margin-bottom:20px">
+				<p:tabView dynamic="true" cache="true" effect="fold">
+					<p:tab title="PMPP" id="tabPmpp">
+						<p:growl id="growlPmpp" showDetail="true" sticky="true" />
+						<p:dataTable id="dataTablePmpp" var="pmpp" paginator="true"
+							rows="10" required="true" value="#{correcionManualBean.listAfiliados_PMPP}"
+							selection="#{correcionManualBean.selectedAfiliados_PMPP}"
+							rowKey="#{pmpp.id.rmap_Af_Tipo_Documento}_#{pmpp.id.rmap_Af_Numero_Documento}_#{pmpp.id.rmap_Archivo_id}"
+							scrollRows="20" scrollable="true" liveScroll="true"
+							widgetVar="pmppTable">
+							<p:column selectionMode="multiple"
+								style="width:16px;text-align:center" />
+							<p:columns value="#{correcionManualBean.dataTableColumnsPMPP}" var="column" headerText="#{column.columnName}" width="250">
+								<f:facet name="header">
+									<h:outputText value="#{column.columnName}" />
+								</f:facet>							
+								<h:outputText value="#{column.columnName eq 'rmap_Af_Tipo_Documento' 
+									|| column.columnName eq 'rmap_Af_Numero_Documento'
+									|| column.columnName eq 'rmap_Archivo_id' ? pmpp.id[column.columnName] : pmpp[column.columnName]}" />
+							</p:columns>
+						</p:dataTable>
+						<h:panelGrid class="gridbutton" columns="2"
+							style="margin-bottom:10px" cellpadding="5">
+							<p:commandButton id="generarPmpp" value="Generar"
+								actionListener="#{correcionManualBean.generateFilePMPP()}"
+								update="dataTablePmpp,growlPmpp" ajax="true"
+								style="float: right;margin: 30px;font-family: FlamaBasic;color: #516E9D;" >
+								<p:confirm header="Confirmación" message="Esta seguro de generar el archivo PMPP?" icon="ui-icon-alert" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						    </p:confirmDialog>
+						</h:panelGrid>
+						<p:blockUI block="tabPmpp" trigger="generarPmpp">
+			        			GENERANDO ARCHIVO...<br />
+							<p:graphicImage url="images/ajaxloadingbar.gif" />
+						</p:blockUI>
+					</p:tab>
+					<p:tab title="PNPA" id="tabPnpa">
+						<p:growl id="growlPnpa" showDetail="true" sticky="true" />
+						<p:dataTable id="dataTablePnpa" var="pnpa" paginator="true"
+							rows="10" required="true" value="#{correcionManualBean.listNovedades_PNPA}"
+							selection="#{correcionManualBean.selectedNovedades_PNPA}"
+							rowKey="#{pnpa.id.rnpa_Af_Tipo_Documento}_#{pnpa.id.rnpa_Af_Numero_Documento}_#{pnpa.id.rnpa_Archivo_Id}_#{pnpa.id.rnpa_Codigo_Novedad}"
+							scrollRows="20" scrollable="true" liveScroll="true"
+							widgetVar="pnpaTable">
+							<p:column selectionMode="multiple"
+								style="width:16px;text-align:center" />
+							<p:columns value="#{correcionManualBean.dataTableColumnsPNPA}" var="column" headerText="#{column.columnName}" width="250">
+								<f:facet name="header">
+									<h:outputText value="#{column.columnName}" />
+								</f:facet>							
+								<h:outputText value="#{column.columnName eq 'rnpa_Af_Tipo_Documento' 
+									|| column.columnName eq 'rnpa_Af_Numero_Documento'
+									|| column.columnName eq 'rnpa_Archivo_Id' 
+									|| column.columnName eq 'rnpa_Codigo_Novedad' ? pnpa.id[column.columnName] : pnpa[column.columnName]}" />
+							</p:columns>
+						</p:dataTable>
+						<h:panelGrid class="gridbutton" columns="2"
+							style="margin-bottom:10px" cellpadding="5">
+							<p:commandButton id="generarPnpa" value="Generar"
+								actionListener="#{correcionManualBean.generateFilePNPA()}"
+								update="dataTablePnpa,growlPnpa" ajax="true"
+								style="float: right;margin: 30px;font-family: FlamaBasic;color: #516E9D;" >
+								<p:confirm header="Confirmación" message="Esta seguro de generar el archivo PNPA?" icon="ui-icon-alert" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						    </p:confirmDialog>
+						</h:panelGrid>
+						<p:blockUI block="tabPnpa" trigger="generarPnpa">
+			        			GENERANDO ARCHIVO...<br />
+							<p:graphicImage url="images/ajaxloadingbar.gif" />
+						</p:blockUI>
+					</p:tab>
+					<p:tab title="PNPE" id="tabPnpe">
+						<p:growl id="growlPnpe" showDetail="true" sticky="true" />
+						<p:dataTable id="dataTablePnpe" var="pnpe" paginator="true"
+							rows="10" required="true" value="#{correcionManualBean.listNovedades_PNPE}"
+							selection="#{correcionManualBean.selectedNovedades_PNPE}"
+							rowKey="#{pnpe.id.rnpe_Af_Tipo_Documento}_#{pnpe.id.rnpe_Af_Numero_Documento}_#{pnpe.id.rnpe_Archivo_id}"
+							scrollRows="20" scrollable="true" liveScroll="true"
+							widgetVar="pnpeTable">
+							<p:column selectionMode="multiple"
+								style="width:16px;text-align:center" />
+							<p:columns value="#{correcionManualBean.dataTableColumnsPNPE}" var="column" headerText="#{column.columnName}" width="250">
+								<f:facet name="header">
+									<h:outputText value="#{column.columnName}" />
+								</f:facet>							
+								<h:outputText value="#{column.columnName eq 'rnpe_Af_Tipo_Documento' 
+									|| column.columnName eq 'rnpe_Af_Numero_Documento'
+									|| column.columnName eq 'rnpe_Archivo_id'
+									|| column.columnName eq 'rnpe_Tipo_Cambio'
+									|| column.columnName eq 'rnpe_Ap_Tipo_Identificacion' 
+									|| column.columnName eq 'rnpe_Ap_Numero_Identificacion' ? pnpe.id[column.columnName] : pnpe[column.columnName]}" />
+							</p:columns>
+						</p:dataTable>
+						<h:panelGrid class="gridbutton" columns="2"
+							style="margin-bottom:10px" cellpadding="5">
+							<p:commandButton id="generarPnpe" value="Generar"
+								actionListener="#{correcionManualBean.generateFilePNPE()}"
+								update="dataTablePnpe,growlPnpe" ajax="true"
+								style="float: right;margin: 30px;font-family: FlamaBasic;color: #516E9D;" >
+								<p:confirm header="Confirmación" message="Esta seguro de generar el archivo PNPE?" icon="ui-icon-alert" />
+							</p:commandButton>
+							<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						        <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						    </p:confirmDialog>
+						</h:panelGrid>
+						<p:blockUI block="tabPnpe" trigger="generarPnpe">
+			        			GENERANDO ARCHIVO...<br />
+							<p:graphicImage url="images/ajaxloadingbar.gif" />
+						</p:blockUI>
+					</p:tab>
+				</p:tabView>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

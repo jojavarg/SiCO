@@ -1,0 +1,55 @@
+/*@import url("../../../../base/estilos/base.css");*/
+@import url("../../../../base/estilos/baseNueva.css");
+
+.menu .submenu { background: #E6ECF5; }
+
+.pubUtilidades li:first-child, .pubUtilidades li:nth-child(6) { display: none; }
+
+
+/***** Slide Principal *****/
+
+/***** Portal Activo *****/
+.portales .slick-slide { opacity: 1;}
+.portales .slick-slide:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+/***** Servicios *****/
+.servicios .slick-slider { border: 1px solid #ddd; }
+.hoverImg .thumbnail .caption { height: initial; }
+
+
+/***** Noticias *****/
+
+.Noticias .pubHisto.col-md-6{ width:33%; padding-bottom: 5px}
+	.Noticias .pubHisto.col-md-6 .pubHistoImagen img{ width:100%}
+
+.noticias .tituloPublis strong { 
+    max-height: 50px;
+    overflow: hidden;
+}
+.noticias .tituloPublis { margin-top: 15px; }
+
+
+/***** Bloque Imagen con titulo *****/
+.imagenHome .enlacePub {
+    top: 0;
+    bottom: initial;
+}
+
+/***** Tablas publicaciones *****/
+table.tablePub tbody tr td:first-child, table.tablePub tbody td a { color: #526e9e }
+
+
+@media only screen and (max-width: 991px){
+
+	.sliderPpal .bx-wrapper .panelPhGa-overlay { color: #526e9e; }
+	
+}
+
+
+/*Iframe facebook*/
+.facebookHeight{
+	height: 180px;
+	width: 340px;
+}
