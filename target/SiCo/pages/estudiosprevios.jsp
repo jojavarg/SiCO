@@ -36,7 +36,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row" id="flechas" style="display:none">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="form-group" align="right">
 				<button class="btn btn-default"><< 
@@ -126,8 +126,8 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 				<select class="form-control" id="estado">
 					<option value="0">--Seleccione uno--</option>
 					<option value="1">ELABORACIÓN</option>
-					<option value="1">Anulada</option>
-					<option value="1">Viable pero </option>
+					<option value="2">Anulada</option>
+					<option value="3">Viable pero </option>
 				</select>
 			</div>
 		</div>
@@ -148,7 +148,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 	<div class="row">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="form-group">
-				<button class="btn btn-primary">Buscar   <i class="fas fa-search"></i></button>
+				<button class="btn btn-primary" id="buscar">Buscar   <i class="fas fa-search"></i></button>
 			</div>
 		</div>
 	</div>
@@ -291,7 +291,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 		</div>
 
 		<div id="menu1" class="tab-pane fade">
-			<h5>Conveniencia y Necesidad</h5>
+			<br><br>
 			
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -369,12 +369,15 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<select class="form-control" id="descripcionplazo">
-						<option value="0">--Seleccion uno--</option>
-						<option value="1">día(s)</option>
-						<option value="2" selected="selected">mes(es)</option>
-						<option value="3">año(s)</option>
-					</select>
+					<div class="form-group">
+						<label for="descripcionplazo">&nbsp;</label> 
+						<select class="form-control" id="descripcionplazo">
+							<option value="0">--Seleccion uno--</option>
+							<option value="1">día(s)</option>
+							<option value="2" selected="selected">mes(es)</option>
+							<option value="3">año(s)</option>
+						</select>
+					</div>
 				</div>
 			</div>
 
@@ -672,7 +675,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 
 <script>
 	$("#linea").on('change',function() {
-		alert("Actualizando campos");	
+//		alert("Actualizando campos");	
 		var linea;
 		var row = 0;
 		linea = this.value;
@@ -705,6 +708,46 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 	});
 
 
+	
+	
+	$("#buscar").on('click',function() {
+		alert("Buscando...");	
+		var linea;
+		var row = 0;
+		nosisco = $("#nosisco").val();
+		vigencia = $("#vigencia").val();
+		estado = $( "select#estado option:selected" ).val();
+		objetoestudios = $("#objetoestudios").val();
+
+		if(nosisco == null) nosisco='';
+		if(vigencia == null) vigencia='';
+		if(estado == null) estado='';
+		if(objetoestudios == null) objetoestudios='';
+		
+		$.ajax({
+			data : {
+				"nosisco" : nosisco,
+				"vigencia" : vigencia,
+				"estado" : estado,
+				"objetoestudios" : objetoestudios,
+			},
+			type : "POST",
+			async : false,
+			url : "../LlenarCampos/buscarestudiosPrevios",
+			success : function(data) {
+				var respCons = data.respuesta;
+				if (respCons.length > 1){
+					$("flechas").style.display='';
+					
+				}else{
+					$("flechas").style.display='none';
+					
+					
+				}
+				
+			}
+		})
+	})
 </script>
 <%@ include file="/templates/footer.jsp" %>  
 

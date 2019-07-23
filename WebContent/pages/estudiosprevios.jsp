@@ -127,7 +127,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 					<option value="0">--Seleccione uno--</option>
 					<option value="1">ELABORACIÓN</option>
 					<option value="2">Anulada</option>
-					<option value="3">Viable pero </option>
+					<option value="3">Viable y conveniente </option>
 				</select>
 			</div>
 		</div>
@@ -291,7 +291,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 		</div>
 
 		<div id="menu1" class="tab-pane fade">
-			<h5>Conveniencia y Necesidad</h5>
+			<br><br>
 			
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -369,12 +369,15 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 					</div>
 				</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-					<select class="form-control" id="descripcionplazo">
-						<option value="0">--Seleccion uno--</option>
-						<option value="1">día(s)</option>
-						<option value="2" selected="selected">mes(es)</option>
-						<option value="3">año(s)</option>
-					</select>
+					<div class="form-group">
+						<label for="descripcionplazo">&nbsp;</label> 
+						<select class="form-control" id="descripcionplazo">
+							<option value="0">--Seleccion uno--</option>
+							<option value="1">día(s)</option>
+							<option value="2" selected="selected">mes(es)</option>
+							<option value="3">año(s)</option>
+						</select>
+					</div>
 				</div>
 			</div>
 
@@ -733,8 +736,12 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			url : "../LlenarCampos/buscarestudiosPrevios",
 			success : function(data) {
 				var respCons = data.respuesta;
-				if respCons.lenght() > 1){
+				if (respCons.length > 1){
 					$("flechas").style.display='';
+					
+				}else{
+					$("flechas").style.display='none';
+					
 					
 				}
 				

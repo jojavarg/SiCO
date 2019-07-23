@@ -103,6 +103,35 @@
 				from dual
 			</tns:CommandText>
 		</tns:MetadataQuery>
+
+	<tns:MetadataQuery>
+		<tns:QueryName>BUSCAR_ESTUDIOS_PREVIOS</tns:QueryName>
+		<tns:CommandText>
+
+		</tns:CommandText>
+			<tns:Parameters>
+			<tns:Parameter>
+				<tns:ParameterName>@nosisco</tns:ParameterName>
+				<tns:ParameterType>VARCHAR</tns:ParameterType>
+				<tns:ParameterScale>50</tns:ParameterScale>
+			</tns:Parameter>
+			<tns:Parameter>
+				<tns:ParameterName>@estado</tns:ParameterName>
+				<tns:ParameterType>VARCHAR</tns:ParameterType>
+				<tns:ParameterScale>50</tns:ParameterScale>
+			</tns:Parameter>
+			<tns:Parameter>
+				<tns:ParameterName>@vigencia</tns:ParameterName>
+				<tns:ParameterType>VARCHAR</tns:ParameterType>
+				<tns:ParameterScale>50</tns:ParameterScale>
+			</tns:Parameter>
+			<tns:Parameter>
+				<tns:ParameterName>@objetoestudios</tns:ParameterName>
+				<tns:ParameterType>VARCHAR</tns:ParameterType>
+				<tns:ParameterScale>50</tns:ParameterScale>
+			</tns:Parameter>
+		</tns:Parameters>
+	</tns:MetadataQuery>
 		
 		
 		

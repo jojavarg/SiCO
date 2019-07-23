@@ -17,7 +17,7 @@ String basePath6 = request.getScheme()+"://"+request.getServerName()+":"+request
 
 
 
-
+<script type="text/javascript" src="<% out.println(basePath6);%>js/bootstrap-treeview.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<% out.println(basePath6);%>js/moment.js"></script>
 

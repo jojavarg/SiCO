@@ -6,10 +6,8 @@ package co.movilidadbogota.bl;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.Size;
@@ -27,14 +25,13 @@ import co.movilidadbogota.util.SessionUtils;
 @RequestScoped
 public class LoginBean implements Serializable {
 
-    @Size(min = 2, max = 50)
-    private String username;
-    @Size(min = 2, max = 50)
-    private String password;
-    private String database;
-    
+	@Size(min = 2, max = 50)
+	private String username;
+	@Size(min = 2, max = 50)
+	private String password;
+	private String database;
+
 	private static DaLoginBean DALoginBean = null;
-    
 
 	public String getUsername() {
 		return username;
@@ -59,11 +56,11 @@ public class LoginBean implements Serializable {
 	public void setDatabase(String database) {
 		this.database = database;
 	}
-    
-    public String index() {
-          return "/pages/main.xhtml";
-      }
-   
+
+	public String index() {
+		return "/pages/main.xhtml";
+	}
+
 	// logout event, invalidate session
 	public String logout() {
 
@@ -103,7 +100,7 @@ public class LoginBean implements Serializable {
 		this.setUsername(request.getParameter("usuario"));
 		this.setPassword(request.getParameter("password"));
 		this.setDatabase(request.getParameter("database"));
-		
+
 		java.sql.Timestamp fechaInicioProceso = null;
 		try {
 			// fecha Inicio Proceso
@@ -114,14 +111,14 @@ public class LoginBean implements Serializable {
 			System.out.println("\n\n--------------------- Inicio Conexion Database-------------\n\n");
 
 			if (DALoginBean == null) {
-				Map<String, String> map = OracleConnectionUtils.obtenerParametrosConexion(this.getUsername(), this.getPassword());
+				Map<String, String> map = OracleConnectionUtils.obtenerParametrosConexion(this.getUsername(),
+						this.getPassword());
 				DALoginBean = new DaLoginBean(map);
 				System.out.println("Conectado");
 			}
 			System.out.println("\n\n----------------- Fin Conexion Database ---------------\n\n");
 
 			return DALoginBean.verificarUsuario(username);
-
 
 		} catch (Throwable e) {
 
@@ -134,7 +131,6 @@ public class LoginBean implements Serializable {
 
 			System.out.println(fuente + "\n" + nombreFuente + "\n" + nombreProceso + "\n" + mensajeError);
 			e.printStackTrace();
-
 
 			return "error";
 		}
@@ -149,151 +145,95 @@ public class LoginBean implements Serializable {
 		username = usuario.getLogin();
 		return username;
 	}
-    
+
 }
 
-	/*  			
-	 * Connection conexion = null;
-Statement st = null;
-ResultSet rs = null;
-boolean estaConectado = false; 
-String driverClass= ResourceUtil.getResourceValue("resources", "DriverClass"); 
-	Class.forName(driverClass);
-	conexion = DriverManager.getConnection(ResourceUtil.getResourceValue("resources", "ConexionURL"), username, password);
-	*/
+/*
+ * Connection conexion = null; Statement st = null; ResultSet rs = null; boolean
+ * estaConectado = false; String driverClass=
+ * ResourceUtil.getResourceValue("resources", "DriverClass");
+ * Class.forName(driverClass); conexion =
+ * DriverManager.getConnection(ResourceUtil.getResourceValue("resources",
+ * "ConexionURL"), username, password);
+ */
 
+/*
+ * try { st = conexion.createStatement(); rs = st.
+ * executeQuery("SELECT DISTINCT USUARIO from CO_USUARIOS where usuario LIKE '"+
+ * username + "'");
+ * 
+ * while (rs.next()) { UsuarioBean usuario = new UsuarioBean();
+ * usuario.setLogin(username); usuario.setFechaIngreso(new Date());
+ * usuario.setModulo(null); usuario.setEstado(null);
+ * FacesUtils.colocaBeanEnSesion("UsuarioBean", usuario); estaConectado = true;
+ * }
+ * 
+ * if(estaConectado) { return "/index.jsp";
+ * 
+ * }
+ * 
+ * }catch (Exception ex) {
+ * System.out.println("Error: No existe usuarios con ese login");
+ * 
+ * return "/index.jsp";
+ * 
+ * }finally{ rs.close(); st.close(); conexion.close(); }
+ */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-	
-	
-	/*
-	try {
-		st = conexion.createStatement();
-		rs = st.executeQuery("SELECT DISTINCT USUARIO from CO_USUARIOS where usuario LIKE '"+ username + "'");
-		
-	while (rs.next()) {
-		UsuarioBean usuario = new UsuarioBean();
-		usuario.setLogin(username);
-		usuario.setFechaIngreso(new Date());
-		usuario.setModulo(null);
-		usuario.setEstado(null);
-		FacesUtils.colocaBeanEnSesion("UsuarioBean", usuario);
-		estaConectado = true;
-	}
-	
-	if(estaConectado) {
-		return "/index.jsp";
-		
-	}
-
-	}catch (Exception ex) {
-		System.out.println("Error: No existe usuarios con ese login");
-		
-		return "/index.jsp";
-		
-	}finally{
-		rs.close();
-		st.close();
-		conexion.close();
-	}*/
-	
-
-
-		/*
-		//if (perfil == 12 || perfil == 13){
-		if (nombrePerfil.equals("Administrador") || nombrePerfil.equals("AdministradorRuaf")) {
-			
-			System.out.println("\nPerfil Administrador o AdministradorRuaf:" + nombrePerfil);   		
-      	UsuarioBean usuario = new UsuarioBean();
-        //  usuario.setIngresoEntrada(true);
-          usuario.setLogin(username);
-          usuario.setFechaIngreso(new Date());
-          usuario.setModulo("");
-          usuario.setEstado("");
-          
-          //usuario.setUsuarioID(usuarioID);
-          
-          System.out.println("\nCrea sesion");
-          
-          FacesUtils.colocaBeanEnSesion("UsuarioBean", usuario);
-          
-          System.out.println("\nFn Crea sesion");
-          
-          System.out.println("\nInicia Bitacora");
-          //BitacoraVo bVo = (BitacoraVo)blbitacora.creaBitacora("RUAF", Constants.BLOGININ, "colocarUsuarioSesion");
-          
-          try{
-          	blGeneral.ruafBitacoraUsu(bVo.getBiSecuencia().longValue(), usuario.getUsuarioID());
-          }catch(Exception e){
-          	e.printStackTrace();
-          }System.out.println("\nFin Bitacora");
-          
-          //if (perfil == 12){
-          if (nombrePerfil.equals("Administrador")){
-          	return "/pages/parametros.xhtml";
-          //} else if (perfil == 13) {
-          } else if (nombrePerfil.equals("AdministradorRuaf")){
-          	return "/pages/generacion_pmptotal.xhtml";
-          } else {
-          	return "/index.jsp";
-          }
-		} else {
-			
-			System.out.println("\n Perfil: Sin Perfil Administrador");
-			
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_WARN,
-							infoperfil[1], ""));
-			
-			System.out.println("\nInicia Bitacora Sin Perfil Administrador");
-			
-			//BitacoraVo bVo = (BitacoraVo) blbitacora.creaBitacora("RUAF", Constants.BLOGINERR, "colocarUsuarioSesion");
-			
-			try {
-				blGeneral.ruafBitacoraUsu(bVo.getBiSecuencia().longValue(), usuarioID);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			System.out.println("\nFin Bitacora Sin Perfil Administrador");
-			
-			return "/index.jsp";
-		}
-	} else {
-		FacesContext.getCurrentInstance().addMessage(
-				null, new FacesMessage(FacesMessage.SEVERITY_WARN, infoperfil[1], ""));
-		
-		System.out.println("\n Inicio Bitacora  Sin Perfil");
-		//BitacoraVo bVo = (BitacoraVo)blbitacora.creaBitacora("RUAF", Constants.BLOGINERR, "colocarUsuarioSesion");
-		
-      try{
-      	blGeneral.ruafBitacoraUsu(bVo.getBiSecuencia().longValue(), usuarioID);
-      }catch(Exception e){
-      	e.printStackTrace();
-      }
-      
-      System.out.println("\nFin Bitacora  Sin Perfil");
-      return "/index.jsp";
-	}*/
+/*
+ * //if (perfil == 12 || perfil == 13){ if (nombrePerfil.equals("Administrador")
+ * || nombrePerfil.equals("AdministradorRuaf")) {
+ * 
+ * System.out.println("\nPerfil Administrador o AdministradorRuaf:" +
+ * nombrePerfil); UsuarioBean usuario = new UsuarioBean(); //
+ * usuario.setIngresoEntrada(true); usuario.setLogin(username);
+ * usuario.setFechaIngreso(new Date()); usuario.setModulo("");
+ * usuario.setEstado("");
+ * 
+ * //usuario.setUsuarioID(usuarioID);
+ * 
+ * System.out.println("\nCrea sesion");
+ * 
+ * FacesUtils.colocaBeanEnSesion("UsuarioBean", usuario);
+ * 
+ * System.out.println("\nFn Crea sesion");
+ * 
+ * System.out.println("\nInicia Bitacora"); //BitacoraVo bVo =
+ * (BitacoraVo)blbitacora.creaBitacora("RUAF", Constants.BLOGININ,
+ * "colocarUsuarioSesion");
+ * 
+ * try{ blGeneral.ruafBitacoraUsu(bVo.getBiSecuencia().longValue(),
+ * usuario.getUsuarioID()); }catch(Exception e){ e.printStackTrace();
+ * }System.out.println("\nFin Bitacora");
+ * 
+ * //if (perfil == 12){ if (nombrePerfil.equals("Administrador")){ return
+ * "/pages/parametros.xhtml"; //} else if (perfil == 13) { } else if
+ * (nombrePerfil.equals("AdministradorRuaf")){ return
+ * "/pages/generacion_pmptotal.xhtml"; } else { return "/index.jsp"; } } else {
+ * 
+ * System.out.println("\n Perfil: Sin Perfil Administrador");
+ * 
+ * FacesContext.getCurrentInstance().addMessage( null, new
+ * FacesMessage(FacesMessage.SEVERITY_WARN, infoperfil[1], ""));
+ * 
+ * System.out.println("\nInicia Bitacora Sin Perfil Administrador");
+ * 
+ * //BitacoraVo bVo = (BitacoraVo) blbitacora.creaBitacora("RUAF",
+ * Constants.BLOGINERR, "colocarUsuarioSesion");
+ * 
+ * try { blGeneral.ruafBitacoraUsu(bVo.getBiSecuencia().longValue(), usuarioID);
+ * } catch (Exception e) { e.printStackTrace(); }
+ * System.out.println("\nFin Bitacora Sin Perfil Administrador");
+ * 
+ * return "/index.jsp"; } } else { FacesContext.getCurrentInstance().addMessage(
+ * null, new FacesMessage(FacesMessage.SEVERITY_WARN, infoperfil[1], ""));
+ * 
+ * System.out.println("\n Inicio Bitacora  Sin Perfil"); //BitacoraVo bVo =
+ * (BitacoraVo)blbitacora.creaBitacora("RUAF", Constants.BLOGINERR,
+ * "colocarUsuarioSesion");
+ * 
+ * try{ blGeneral.ruafBitacoraUsu(bVo.getBiSecuencia().longValue(), usuarioID);
+ * }catch(Exception e){ e.printStackTrace(); }
+ * 
+ * System.out.println("\nFin Bitacora  Sin Perfil"); return "/index.jsp"; }
+ */
