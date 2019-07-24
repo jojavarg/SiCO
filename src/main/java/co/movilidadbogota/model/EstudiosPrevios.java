@@ -12,42 +12,48 @@ import java.util.Date;
 public class EstudiosPrevios {
 
 	LineaPlan lineaplan;
-	String modalidad;
+	String argumento;
+	String resultado;
 	String numeroSisco;
 	int vigencia;
 	String estado;
-	Date fechaElaboracion;
-	String idEntidad;
-	String nombreEntidad;
-	String idUnidad;
-	String nombreUnidad;
-	
-	String directorOficina;
-	String direccion;
-	
-	
 	boolean viabilidad;
 	int noViabilidad;
+
+	String objeto;	
 	
 	
-	String areaOrigen;
-	String idAreaOrigen;
+	General general;
+	Conveniencia conveniencia;
+	Objeto objetos;
+	Condiciones condiciones;
+	Obligaciones obligaciones;
+	Productos productos;
+	Garantia garantia;
+	Respuesta respuesta;
+
+	
+	ResponsableDirector responsableDirector;
+	ResponsableOrdenador responsableOrdenador;
 	
 
-	String objeto;
-	
-	String argumento;
-	String resultado;
-	
-	String valordisp;
-	String contacto;
-	String nombreContacto;
-	
-	String plazoEjecucion;
-	String tipoPlazoEjecucion;
-	
-	
-	
+
+	public ResponsableDirector getResponsableDirector() {
+		return responsableDirector;
+	}
+
+	public void setResponsableDirector(ResponsableDirector responsableDirector) {
+		this.responsableDirector = responsableDirector;
+	}
+
+	public ResponsableOrdenador getResponsableOrdenador() {
+		return responsableOrdenador;
+	}
+
+	public void setResponsableOrdenador(ResponsableOrdenador responsableOrdenador) {
+		this.responsableOrdenador = responsableOrdenador;
+	}
+
 	public String getObjeto() {
 		return objeto;
 	}
@@ -70,46 +76,6 @@ public class EstudiosPrevios {
 
 	public void setResultado(String resultado) {
 		this.resultado = resultado;
-	}
-
-	public String getValordisp() {
-		return valordisp;
-	}
-
-	public void setValordisp(String valordisp) {
-		this.valordisp = valordisp;
-	}
-
-	public String getContacto() {
-		return contacto;
-	}
-
-	public void setContacto(String contacto) {
-		this.contacto = contacto;
-	}
-
-	public String getNombreContacto() {
-		return nombreContacto;
-	}
-
-	public void setNombreContacto(String nombreContacto) {
-		this.nombreContacto = nombreContacto;
-	}
-
-	public String getPlazoEjecucion() {
-		return plazoEjecucion;
-	}
-
-	public void setPlazoEjecucion(String plazoEjecucion) {
-		this.plazoEjecucion = plazoEjecucion;
-	}
-
-	public String getTipoPlazoEjecucion() {
-		return tipoPlazoEjecucion;
-	}
-
-	public void setTipoPlazoEjecucion(String tipoPlazoEjecuucion) {
-		this.tipoPlazoEjecucion = tipoPlazoEjecucion;
 	}
 
 	public int getNoViabilidad() {
@@ -136,14 +102,6 @@ public class EstudiosPrevios {
 		this.lineaplan = lineaplan;
 	}
 
-	public String getModalidad() {
-		return modalidad;
-	}
-
-	public void setModalidad(String modalidad) {
-		this.modalidad = modalidad;
-	}
-
 	public String getNumeroSisco() {
 		return numeroSisco;
 	}
@@ -168,77 +126,79 @@ public class EstudiosPrevios {
 		this.estado = estado;
 	}
 
-	public Date getFechaElaboracion() {
-		return fechaElaboracion;
+	public General getGeneral() {
+		return general;
 	}
 
-	public void setFechaElaboracion(Date fechaElaboracion) {
-		this.fechaElaboracion = fechaElaboracion;
+	public void setGeneral(General general) {
+		this.general = general;
 	}
 
-	public String getIdEntidad() {
-		return idEntidad;
+	public Conveniencia getConveniencia() {
+		return conveniencia;
 	}
 
-	public void setIdEntidad(String idEntidad) {
-		this.idEntidad = idEntidad;
+	public void setConveniencia(Conveniencia conveniencia) {
+		this.conveniencia = conveniencia;
 	}
 
-	public String getNombreEntidad() {
-		return nombreEntidad;
+	public Objeto getObjetos() {
+		return objetos;
 	}
 
-	public void setNombreEntidad(String nombreEntidad) {
-		this.nombreEntidad = nombreEntidad;
+	public void setObjetos(Objeto objetos) {
+		this.objetos = objetos;
 	}
 
-	public String getIdUnidad() {
-		return idUnidad;
+	public Condiciones getCondiciones() {
+		return condiciones;
 	}
 
-	public void setIdUnidad(String idUnidad) {
-		this.idUnidad = idUnidad;
+	public void setCondiciones(Condiciones condiciones) {
+		this.condiciones = condiciones;
 	}
 
-	public String getNombreUnidad() {
-		return nombreUnidad;
+	public Obligaciones getObligaciones() {
+		return obligaciones;
 	}
 
-	public void setNombreUnidad(String nombreUnidad) {
-		this.nombreUnidad = nombreUnidad;
+	public void setObligaciones(Obligaciones obligaciones) {
+		this.obligaciones = obligaciones;
 	}
 
-	public String getDirectorOficina() {
-		return directorOficina;
+	public Productos getProductos() {
+		return productos;
 	}
 
-	public void setDirectorOficina(String directorOficina) {
-		this.directorOficina = directorOficina;
+	public void setProductos(Productos productos) {
+		this.productos = productos;
 	}
 
-	public String getDireccion() {
-		return direccion;
+	public Garantia getGarantia() {
+		return garantia;
 	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setGarantia(Garantia garantia) {
+		this.garantia = garantia;
 	}
 
-	public String getAreaOrigen() {
-		return areaOrigen;
+	public Respuesta getRespuesta() {
+		return respuesta;
 	}
 
-	public void setAreaOrigen(String areaOrigen) {
-		this.areaOrigen = areaOrigen;
+	public void setRespuesta(Respuesta respuesta) {
+		this.respuesta = respuesta;
 	}
 
-	public String getIdAreaOrigen() {
-		return idAreaOrigen;
-	}
-
-	public void setIdAreaOrigen(String idAreaOrigen) {
-		this.idAreaOrigen = idAreaOrigen;
-	}
-
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

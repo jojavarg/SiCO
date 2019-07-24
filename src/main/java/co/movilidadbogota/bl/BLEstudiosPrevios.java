@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import co.movilidadbogota.da.DaEstudiosPrevios;
 import co.movilidadbogota.model.Dependencia;
 import co.movilidadbogota.model.EstudiosPrevios;
+import co.movilidadbogota.model.Garantia;
 import co.movilidadbogota.model.LineaPlan;
 import co.movilidadbogota.model.Modalidad;
 import co.movilidadbogota.util.OracleConnectionUtils;
@@ -118,9 +119,11 @@ public class BLEstudiosPrevios {
 		return DAEstudiosPrevios.obtenerVigencia();
 	}
 
-
-
-
+/**
+ * 
+ * @param request
+ * @return
+ */
 	public List<EstudiosPrevios> mostrarBusquedaCampos(HttpServletRequest request) {
 		String nosisco = request.getParameter("nosisco");
 		String estado = request.getParameter("estado");
@@ -143,5 +146,77 @@ public class BLEstudiosPrevios {
 
 		return null;
 	}
+	
+	
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public List<Garantia> obtenerAmparo(HttpServletRequest request) {
+
+		try {
+			HttpSession session = request.getSession();
+			UsuarioBean user = (UsuarioBean) session.getAttribute("usuario");
+			if (DAEstudiosPrevios == null) {
+				Map<String, String> map = OracleConnectionUtils.obtenerParametrosConexion(user.getLogin(),
+						user.getPassword());
+				DAEstudiosPrevios = new DaEstudiosPrevios(map);
+			}
+
+			return DAEstudiosPrevios.obtenerAmparo();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}	
+	
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public List<Garantia> obtenerGarantia(HttpServletRequest request) {
+
+		try {
+			HttpSession session = request.getSession();
+			UsuarioBean user = (UsuarioBean) session.getAttribute("usuario");
+			if (DAEstudiosPrevios == null) {
+				Map<String, String> map = OracleConnectionUtils.obtenerParametrosConexion(user.getLogin(),
+						user.getPassword());
+				DAEstudiosPrevios = new DaEstudiosPrevios(map);
+			}
+
+			return DAEstudiosPrevios.obtenerGarantia();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}	
+	
+	
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public List<Garantia> obtenerBase(HttpServletRequest request) {
+
+		try {
+			HttpSession session = request.getSession();
+			UsuarioBean user = (UsuarioBean) session.getAttribute("usuario");
+			if (DAEstudiosPrevios == null) {
+				Map<String, String> map = OracleConnectionUtils.obtenerParametrosConexion(user.getLogin(),
+						user.getPassword());
+				DAEstudiosPrevios = new DaEstudiosPrevios(map);
+			}
+
+			return DAEstudiosPrevios.obtenerBase();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}	
+	
 	
 }

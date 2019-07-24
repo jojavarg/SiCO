@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Dependencia implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7624369129223467594L;
 	String descripcion;
 	String codigoDependencia;
 	String dep2;

@@ -8,7 +8,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import co.movilidadbogota.model.Condiciones;
 import co.movilidadbogota.model.EstudiosPrevios;
+import co.movilidadbogota.model.Garantia;
+import co.movilidadbogota.model.General;
 import co.movilidadbogota.model.LineaPlan;
 import co.movilidadbogota.model.Modalidad;
 import co.movilidadbogota.util.DbCommand;
@@ -99,23 +102,48 @@ public class DaEstudiosPrevios {
 
 			while (rs.next()) {
 				estudiosPrevios.setNoViabilidad(rs.getInt(1));
-				// estudiosPrevios.getLineaplan().setNumeroOrden(linea);
-				estudiosPrevios.setIdEntidad(rs.getString(3));
-				estudiosPrevios.setNombreEntidad(rs.getString(4));
-				estudiosPrevios.setIdUnidad(rs.getString(5));
-				estudiosPrevios.setNombreUnidad(rs.getString(6));				
-				estudiosPrevios.setIdAreaOrigen(rs.getString(7));
-				estudiosPrevios.setAreaOrigen(rs.getString(8));
+				
+				List listaLineaplan = new ArrayList<LineaPlan>();
+				
+				LineaPlan lp = new LineaPlan();
+				lp.setNumeroOrden(linea);
+				lp.setObjeto(rs.getString(11));
+				listaLineaplan.add(lp);
+				
+				//Carga Inicio
+				
 				estudiosPrevios.setArgumento(rs.getString(9));
 				estudiosPrevios.setResultado(rs.getString(10));
 				estudiosPrevios.setObjeto(rs.getString(11));
-				estudiosPrevios.setValordisp(rs.getString(12));
-				estudiosPrevios.setContacto(rs.getString(13));
-				estudiosPrevios.setNombreContacto(rs.getString(14));
-				estudiosPrevios.setPlazoEjecucion(rs.getString(15));
-				estudiosPrevios.setTipoPlazoEjecucion(rs.getString(16));
-
 				
+				//Carga General
+				
+				General general = new General();
+				general.setIdEntidad(rs.getString(3));
+				general.setIdEntidad(rs.getString(3));
+				general.setNombreEntidad(rs.getString(4));
+				general.setIdUnidad(rs.getString(5));
+				general.setNombreUnidad(rs.getString(6));
+				general.setContacto(rs.getString(13));
+				general.setNombreContacto(rs.getString(14));
+				general.setIdAreaOrigen(rs.getString(7));
+				general.setAreaOrigen(rs.getString(8));
+				general.setListaLineaplan(listaLineaplan);
+				
+				estudiosPrevios.setGeneral(general);
+				
+				
+				
+				//Carga Condiciones
+				
+				Condiciones condiciones = new Condiciones();
+				condiciones.setPlazoEjecucion(rs.getString(15));
+				condiciones.setTipoPlazoEjecucion(rs.getString(16));
+				condiciones.setValordisp(rs.getString(12));	
+				
+				estudiosPrevios.setCondiciones(condiciones);
+				
+			
 
 			}
 			return estudiosPrevios;
@@ -137,7 +165,12 @@ public class DaEstudiosPrevios {
 		}
 
 	}
-	
+	/**
+	 * 
+	 * @param modalidad2
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Modalidad> obtenerModalidad(String modalidad2) throws Exception {
 		
 		ResultSet rs = null;
@@ -169,7 +202,7 @@ public class DaEstudiosPrevios {
 		} catch (Exception e) {
 
 			throw new Exception("Nombre de la clase: DaEstudiosPrevios"
-					+ "\n Nombre de metodo: obtenerInformacionEstudioPrevio" + "\n Error: " + e.getMessage());
+					+ "\n Nombre de metodo: obtenerModalidad" + "\n Error: " + e.getMessage());
 
 		} finally {
 			try {
@@ -191,7 +224,6 @@ public class DaEstudiosPrevios {
 	 */
 	public String obtenerVigencia() throws Exception {
 		ResultSet rs = null;
-		String vigencia;
 
 		try {
 			DbCommand command = _database.GetXmlCommandMap("OBTENER_VIGENCIA");
@@ -244,20 +276,49 @@ public class DaEstudiosPrevios {
 				EstudiosPrevios estudiosPrevios = new EstudiosPrevios();
 				estudiosPrevios.setNoViabilidad(rs.getInt(1));
 				// estudiosPrevios.getLineaplan().setNumeroOrden(linea);
-				estudiosPrevios.setIdEntidad(rs.getString(3));
-				estudiosPrevios.setNombreEntidad(rs.getString(4));
-				estudiosPrevios.setIdUnidad(rs.getString(5));
-				estudiosPrevios.setNombreUnidad(rs.getString(6));				
-				estudiosPrevios.setIdAreaOrigen(rs.getString(7));
-				estudiosPrevios.setAreaOrigen(rs.getString(8));
+				
+				
+				
+				List listaLineaplan = new ArrayList<LineaPlan>();
+				
+				LineaPlan lp = new LineaPlan();
+				lp.setNumeroOrden("");
+				lp.setObjeto(rs.getString(11));
+				listaLineaplan.add(lp);
+				
+				
+				
+				
+				//Carga Inicio
+				
 				estudiosPrevios.setArgumento(rs.getString(9));
 				estudiosPrevios.setResultado(rs.getString(10));
 				estudiosPrevios.setObjeto(rs.getString(11));
-				estudiosPrevios.setValordisp(rs.getString(12));
-				estudiosPrevios.setContacto(rs.getString(13));
-				estudiosPrevios.setNombreContacto(rs.getString(14));
-				estudiosPrevios.setPlazoEjecucion(rs.getString(15));
-				estudiosPrevios.setTipoPlazoEjecucion(rs.getString(16));
+				
+				//Carga General
+				
+				General general = new General();
+				general.setIdEntidad(rs.getString(3));
+				general.setNombreEntidad(rs.getString(4));
+				general.setIdUnidad(rs.getString(5));
+				general.setNombreUnidad(rs.getString(6));
+				general.setIdAreaOrigen(rs.getString(7));
+				general.setAreaOrigen(rs.getString(8));
+				general.setContacto(rs.getString(13));
+				general.setNombreContacto(rs.getString(14));
+				general.setListaLineaplan(listaLineaplan);
+				
+				estudiosPrevios.setGeneral(general);
+				
+				//Carga Condiciones
+				
+				Condiciones condiciones = new Condiciones();
+				condiciones.setValordisp(rs.getString(12));	
+				condiciones.setPlazoEjecucion(rs.getString(15));
+				condiciones.setTipoPlazoEjecucion(rs.getString(16));
+
+				
+				estudiosPrevios.setCondiciones(condiciones);
 
 				listaEstudiosPrevios.add(estudiosPrevios);
 
@@ -283,6 +344,142 @@ public class DaEstudiosPrevios {
 	}
 	
 	
+/**
+ * 	
+ * @return
+ * @throws Exception
+ */
+public List<Garantia> obtenerGarantia() throws Exception {
+		
+		ResultSet rs = null;
+		List<Garantia> listaGarantia = new ArrayList<Garantia>();
+
+		try {
+			DbCommand command = _database.GetXmlCommandMap("OBTENER_GARANTIA");
+
+
+			rs = _database.ExecuteResultSet(command);
+			
+
+			while (rs.next()) {
+				Garantia garantia = new Garantia();
+				garantia.setIdGarantia(rs.getString(1));
+				garantia.setDescripcionGarantia(rs.getString(2));
+				
+				listaGarantia.add(garantia);
+				
+			}
+			
+			
+			return listaGarantia;
+		} catch (Exception e) {
+
+			throw new Exception("Nombre de la clase: DaEstudiosPrevios"
+					+ "\n Nombre de metodo: obtenerGarantia" + "\n Error: " + e.getMessage());
+
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				_database.getConn().close();
+			} catch (Exception ex) {
+			}
+
+		}
+	}
+
+/**
+ * 	
+ * @return
+ * @throws Exception
+ */
+public List<Garantia> obtenerAmparo() throws Exception {
+		
+		ResultSet rs = null;
+		List<Garantia> listaGarantia = new ArrayList<Garantia>();
+
+		try {
+			DbCommand command = _database.GetXmlCommandMap("OBTENER_AMPARO");
+
+
+			rs = _database.ExecuteResultSet(command);
+			
+
+			while (rs.next()) {
+				Garantia garantia = new Garantia();
+				garantia.setIdAmparo(rs.getString(1));
+				garantia.setDescripcionAmparo(rs.getString(2));
+				
+				listaGarantia.add(garantia);
+				
+			}
+			
+			
+			return listaGarantia;
+		} catch (Exception e) {
+
+			throw new Exception("Nombre de la clase: DaEstudiosPrevios"
+					+ "\n Nombre de metodo: obtenerAmparo" + "\n Error: " + e.getMessage());
+
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				_database.getConn().close();
+			} catch (Exception ex) {
+			}
+
+		}
+	}
+/**
+ * 	
+ * @return
+ * @throws Exception
+ */
+public List<Garantia> obtenerBase() throws Exception {
+		
+		ResultSet rs = null;
+		List<Garantia> listaGarantia = new ArrayList<Garantia>();
+
+		try {
+			DbCommand command = _database.GetXmlCommandMap("OBTENER_BASE");
+
+
+			rs = _database.ExecuteResultSet(command);
+			
+
+			while (rs.next()) {
+				Garantia garantia = new Garantia();
+				garantia.setIdBase(rs.getString(1));
+				garantia.setDescripcionBase(rs.getString(2));
+				
+				listaGarantia.add(garantia);
+				
+			}
+			
+			
+			return listaGarantia;
+		} catch (Exception e) {
+
+			throw new Exception("Nombre de la clase: DaEstudiosPrevios"
+					+ "\n Nombre de metodo: obtenerAmparo" + "\n Error: " + e.getMessage());
+
+		} finally {
+			try {
+				rs.close();
+			} catch (Exception ex) {
+			}
+			try {
+				_database.getConn().close();
+			} catch (Exception ex) {
+			}
+
+		}
+	}
 	
 
 }

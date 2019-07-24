@@ -127,7 +127,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 					<option value="0">--Seleccione uno--</option>
 					<option value="1">ELABORACIÓN</option>
 					<option value="2">Anulada</option>
-					<option value="3">Viable pero </option>
+					<option value="3">Viable y conveniente </option>
 				</select>
 			</div>
 		</div>
@@ -254,6 +254,8 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 						<button class="btn btn-default">Ordenador del gasto</button>
 					</div>
 				</div>
+			</div>
+			<div class="row">
 				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
 					<div class="form-group">
 						<button class="btn  btn-default">Replicar firmas</button>
@@ -261,7 +263,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 				</div>
 			</div>
 
-			<H4>Línea o renglón del plan</H4>
+			<H4>Lónea o renglón del plan</H4>
 			
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -373,9 +375,9 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 						<label for="descripcionplazo">&nbsp;</label> 
 						<select class="form-control" id="descripcionplazo">
 							<option value="0">--Seleccion uno--</option>
-							<option value="1">día(s)</option>
-							<option value="2" selected="selected">mes(es)</option>
-							<option value="3">año(s)</option>
+							<option value="D">día(s)</option>
+							<option value="M">mes(es)</option>
+							<option value="A">año(s)</option>
 						</select>
 					</div>
 				</div>
@@ -432,8 +434,8 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
-						<label for="tipopropuestatecnica">Tipo de propuesta tècnica</label>
-						<textarea rows=3 class="form-control" id="tipopropuestatecnica" placeholder="Tipo de propuesta tècnica"></textarea>
+						<label for="tipopropuestatecnica">Tipo de propuesta técnica</label>
+						<textarea rows=3 class="form-control" id="tipopropuestatecnica" placeholder="Tipo de propuesta tócnica"></textarea>
 					</div>
 				</div>
 			</div>
@@ -480,6 +482,12 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 		<div id="menu4" class="tab-pane fade">
 			<br><br>
 			<label>Obligaciones especiales del contratista</label>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right"></div>
+				<button class="btn-success btn">+</button>
+				<button class="btn-danger btn">-</button>
+				></div>
+			</div>
 
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -492,8 +500,13 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			<hr/>
 
 
-			<label>Obligaciones del supervisor (por parte de la Secretaría Distrital de Movilidad)</label>
-
+			<label>Obligaciones del supervisor (por parte de la Secretaróa Distrital de Movilidad)</label>
+			<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right"></div>
+					<button class="btn-success btn">+</button>
+					<button class="btn-danger btn">-</button>
+					></div>
+				</div>
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
@@ -505,7 +518,12 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			<hr/>
 
 			<label>Obligaciones especiales del interventor (Si las hay)</label>
-
+			<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right"></div>
+					<button class="btn-success btn">+</button>
+					<button class="btn-danger btn">-</button>
+					></div>
+				</div>
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
@@ -557,7 +575,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
 						<label for="observacionesgarantia">Observaciones a la garantía / Razones de no seguir</label>
-						<textarea rows=3 class="form-control" id="observacionesgarantia" placeholder="Observaciones a la garantía / Razones de no seguir"></textarea>
+						<textarea rows=3 class="form-control" id="observacionesgarantia" placeholder="Observaciones a la garantóa / Razones de no seguir"></textarea>
 					</div>
 				</div>
 			</div>
@@ -611,8 +629,8 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
-						<label for="soporteriesgos">Soporte Tipìficación Riesgos</label> <input type="text"
-						class="form-control" id="soporteriesgos" placeholder="Soporte Tipìficación Riesgos">
+						<label for="soporteriesgos">Soporte Tipificación Riesgos</label> <input type="text"
+						class="form-control" id="soporteriesgos" placeholder="Soporte Tipificación Riesgos">
 					</div>
 				</div>
 			</div>
@@ -620,8 +638,8 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
-						<label for="exigenciasgarantia">Exigencia Garantìas Ofrecimiento</label> <input type="text"
-						class="form-control" id="exigenciasgarantia" placeholder="Exigencia Garantìas Ofrecimiento">
+						<label for="exigenciasgarantia">Exigencia Garantías Ofrecimiento</label> <input type="text"
+						class="form-control" id="exigenciasgarantia" placeholder="Exigencia Garantías Ofrecimiento">
 					</div>
 				</div>
 			</div>
@@ -629,7 +647,7 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
-						<label for="garantiasofrecimiento">Garantías Ofrecimiento</label> <input type="text" class="form-control" id="garantiasofrecimiento" placeholder="Garantías Ofrecimiento">
+						<label for="garantiasofrecimiento">Garantóas Ofrecimiento</label> <input type="text" class="form-control" id="garantiasofrecimiento" placeholder="Garantóas Ofrecimiento">
 					</div>
 				</div>
 			</div>
@@ -637,8 +655,8 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
-						<label for="analisisgarantias">Análisis Garantías Incumplimiento</label> <input type="text"
-						class="form-control" id="analisisgarantias" placeholder="Análisis Garantías Incumplimiento">
+						<label for="analisisgarantias">Anólisis Garantóas Incumplimiento</label> <input type="text"
+						class="form-control" id="analisisgarantias" placeholder="Anólisis Garantóas Incumplimiento">
 					</div>
 				</div>
 			</div>
@@ -646,8 +664,8 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="form-group">
-						<label for="pertinenciagarantias">Pertinencia División Garantías</label> <input type="text"
-						class="form-control" id="pertinenciagarantias" placeholder="Pertinencia División Garantías">
+						<label for="pertinenciagarantias">Pertinencia División Garantóas</label> <input type="text"
+						class="form-control" id="pertinenciagarantias" placeholder="Pertinencia División Garantóas">
 					</div>
 				</div>
 			</div>
@@ -690,14 +708,24 @@ List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 			success : function(data) {
 				var respCons = data.respuesta;
 				console.log(respCons);
-				$("#entidad").val(respCons.nombreEntidad);
-				$("#objetoestudios").val(respCons.objeto);
-				$("#unidad").val(respCons.idUnidad+' - '+respCons.nombreUnidad);
+				
+				
 				$("#modalidad option[value='"+respCons.argumento+"']").prop('selected', true);
-				$("#numeroplazo").val(respCons.plazoEjecucion);
-				$("#descripcionplazo").val(respCons.plazoEjecucion);
-				$("#nombreContacto").val(respCons.valordisp);
-				$("#presupuesto").val(respCons.valordisp);
+				$("#objetoestudios").val(respCons.objeto);
+				
+				//General
+				$("#unidad").val(respCons.general.idUnidad+' - '+respCons.general.nombreUnidad);
+				$("#entidad").val(respCons.general.nombreEntidad);
+				$("#director").val(respCons.general.nombreContacto);
+				$("#direccion").val(respCons.general.idAreaOrigen+' - '+respCons.general.areaOrigen);
+				$("#renglon option[value='"+linea+"']").prop('selected', true);
+				
+				//Condiciones
+				$("#descripcionplazo option[value='"+respCons.condiciones.tipoPlazoEjecucion+"']").prop('selected', true);
+				$("#numeroplazo").val(respCons.condiciones.plazoEjecucion);
+				$("#presupuesto").val(respCons.condiciones.valordisp);
+				
+				
 			}
 		})
 	})

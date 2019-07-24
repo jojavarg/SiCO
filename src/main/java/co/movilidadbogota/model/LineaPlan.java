@@ -9,6 +9,10 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class LineaPlan implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String numeroOrden;
 	String objeto;
 
