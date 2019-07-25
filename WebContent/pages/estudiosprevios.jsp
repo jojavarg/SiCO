@@ -4,6 +4,7 @@ pageEncoding="ISO-8859-1"%>
 <%@ page import="co.movilidadbogota.model.LineaPlan"%>
 <%@ page import="co.movilidadbogota.model.Modalidad"%>
 <%@ page import="co.movilidadbogota.model.Dependencia"%>
+<%@ page import="co.movilidadbogota.model.Garantia"%>
 <%@ page import="java.util.List"%>
 
 <!DOCTYPE html>
@@ -36,7 +37,7 @@ List<Garantia> listaAmparo = bLEstudiosPrevios.obtenerAmparo(request);
 					<!-- <div class="col-lg-4 col-md-4 col-sm-1 col-xs-1"></div>-->
 					<!--<i class='far fa-file-alt iconY'></i>-->
 					<button class="btn btn-primary" id="nuevo">Nuevo</button>&nbsp;&nbsp;
-					<button class="btn btn-primary">Consultar </button>&nbsp;&nbsp;
+					<button class="btn btn-primary" id="consultar">Consultar </button>&nbsp;&nbsp;
 				</div>
 			</div>
 		</div>
@@ -53,7 +54,7 @@ List<Garantia> listaAmparo = bLEstudiosPrevios.obtenerAmparo(request);
 		</div>
 	</div>
 
-	<div class="row">
+	<div class="row" id="lineainicial">
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="form-group">
 				<label for="linea">Linea Plan de Contratación</label>
@@ -486,59 +487,75 @@ List<Garantia> listaAmparo = bLEstudiosPrevios.obtenerAmparo(request);
 		</div>
 
 		<div id="menu4" class="tab-pane fade">
-			<br><br>
-			<label>Obligaciones especiales del contratista</label>
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right"></div>
-				<button class="btn-success btn">+</button>
-				<button class="btn-danger btn">-</button>
-				></div>
-			</div>
-
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="form-group">
-						<textarea rows=3 class="form-control" id="obligacionesContratista" placeholder="Nueva obligación"></textarea>
+			<br><br>Obligaciones
+			<div id="obligacionEspeciales">
+				<label>Obligaciones especiales del contratista</label>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right">
+						<button class="btn-success btn">+</button>
+						<button class="btn-danger btn">-</button>
+					</div>
+					<br /><br />
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<textarea rows=2 class="form-control" id="obligacionesContratista" placeholder="Nueva obligación"></textarea>
+						</div>
 					</div>
 				</div>
+				<br /><br />
 			</div>
+			<hr/>
+
+			<div id="obligacionSupervisor">
+				<label>Obligaciones del supervisor (por parte de la
+					Secretaría Distrital de Movilidad)</label>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right">
+						<button class="btn-success btn">+</button>
+						<button class="btn-danger btn">-</button>
+						<br /><br />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<div class="form-group">
+							<textarea rows=2 class="form-control" id="obligacionesSupervisor"
+								placeholder="Nueva obligación"></textarea>
+						</div>
+					</div>
+				</div>
+				<br /><br />
+			</div>
+			<hr/>
 			
-			<hr/>
-
-
-			<label>Obligaciones del supervisor (por parte de la Secretaróa Distrital de Movilidad)</label>
-			<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right"></div>
-					<button class="btn-success btn">+</button>
-					<button class="btn-danger btn">-</button>
-					></div>
-				</div>
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="form-group">
-						<textarea rows=3 class="form-control" id="obligacionesSupervisor" placeholder="Nueva obligación"></textarea>
+			<div id="obligacionInterventor">
+				<label>Obligaciones especiales del interventor (Si las hay)</label>
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right" >
+						<button class="btn-success btn adddel" id="addoblInterventor">+</button>
+						<br /><br />
 					</div>
 				</div>
-			</div>
-
-			<hr/>
-
-			<label>Obligaciones especiales del interventor (Si las hay)</label>
-			<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right"></div>
-					<button class="btn-success btn">+</button>
-					<button class="btn-danger btn">-</button>
-					></div>
-				</div>
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="form-group">
-						<textarea rows=3 class="form-control" id="obligacionesInterventor" placeholder="Nueva obligación"></textarea>
+				<div class="row">
+					<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+						<div class="form-group">
+							<input type="hidden" value="1" id="obligacionInterventor">
+							<textarea rows=2 class="form-control" id="obligacionesInterventor"
+								placeholder="Nueva obligación"></textarea>
+						</div>
 					</div>
-				</div>
+					<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+						<div class="form-group" align="right">
+							<button class="btn-danger btn adddel" id="deloblInterventor">-</button>
+						</div>
+					</div>
+					<br /><br />
+				</div>	
 			</div>
-
 			<hr/>
+			
 		</div>
 
 		<div id="menu5" class="tab-pane fade">
@@ -738,16 +755,53 @@ List<Garantia> listaAmparo = bLEstudiosPrevios.obtenerAmparo(request);
 
 
 	$("#nuevo").on('click',function(){
+		$('#lineainicial').show(100);
 		$('#estudiosprevios')[0].reset();
+		$("#nosisco").attr("readonly","readonly");
+		event.preventDefault();
 	});
 
 
+	$("#consultar").on('click',function(event){
+		$('#lineainicial').hide(100);
+		$("#nosisco").removeAttr("readonly");
+		event.preventDefault();
+	});
+	
+	$("#addoblInterventor").on('click',function(event) {
+		
+		var lastField = $("#obligacionInterventor div.row:last")
+		var intId = (lastField && lastField.length) || 1;
+		intId++;
+			  
+					  
+		var newInput='<div class="row"><div class="col-lg-10 col-md-10 col-sm-10 col-xs-10"><div class="form-group">'+
+			'<input type="hidden" value="'+intId+'" id="obligacionInterventor">'+
+			'<textarea rows=2 class="form-control" id="obligacionesInterventor'+intId+'" placeholder="Nueva obligación"></textarea></div></div>'+
+			'<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"><div class="form-group" align="right">'+
+			'<button class="btn-danger btn adddel" id="deloblInterventor">-</button></div></div><br /><br /></div>';
+	  
+					  
+		lastField.after(newInput);		  
+		event.preventDefault();		  
+					  
+	});
+	
+	$("#deloblInterventor").on('click',function(event) {
+		
+		$("#deloblInterventor").parent().parent().parent().remove();
+		
+		event.preventDefault();		  
+					  
+	});
+	
 	
 	
 	$("#buscar").on('click',function() {
 		alert("Buscando...");	
 		var linea;
 		var row = 0;
+		modalidad = $("#modalidad").val();
 		nosisco = $("#nosisco").val();
 		vigencia = $("#vigencia").val();
 		estado = $( "select#estado option:selected" ).val();
@@ -760,6 +814,7 @@ List<Garantia> listaAmparo = bLEstudiosPrevios.obtenerAmparo(request);
 		
 		$.ajax({
 			data : {
+				"modalidad" : modalidad,
 				"nosisco" : nosisco,
 				"vigencia" : vigencia,
 				"estado" : estado,

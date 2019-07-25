@@ -59,7 +59,7 @@
 		</tns:MetadataQuery>
 
 		<tns:MetadataQuery>
-			<tns:QueryName>OBTENER_DEPENDECIAS</tns:QueryName>
+			<tns:QueryName>OBTENER_DEPENDENCIAS</tns:QueryName>
 			<tns:CommandText>
 				SELECT descripcion, codigo_dependencia,codigo_dependencia dep2,ubicacion
 				FROM rh_dependencias
