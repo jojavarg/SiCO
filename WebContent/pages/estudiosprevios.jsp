@@ -16,7 +16,6 @@ BLEstudiosPrevios bLEstudiosPrevios= new BLEstudiosPrevios();
 String vigencia = bLEstudiosPrevios.obtenerVigencia(request);
 List<LineaPlan> listaPlan = bLEstudiosPrevios.obtenerLineaPlan(request);
 
-
 List<Modalidad> listaModalidad = bLEstudiosPrevios.obtenerModalidad(request);
 List<Garantia> listaGarantia = bLEstudiosPrevios.obtenerGarantia(request);
 List<Garantia> listaBase = bLEstudiosPrevios.obtenerBase(request);
@@ -52,6 +51,17 @@ List<Garantia> listaAmparo = bLEstudiosPrevios.obtenerAmparo(request);
 				<button class="btn btn-default"> >></button>
 			</div>
 		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="form-group">
+				<label for="lineaPlan">Línea Plan</label>
+				<input type="text" class="form-control" id="lineaPlan" placeholder="Línea Plan" />
+				<button type="button" onclick="window.open('lineas.jsp')">Cargar Líneas</button>
+			</div>
+		</div>
+
 	</div>
 
 	<div class="row" id="lineainicial">
@@ -788,8 +798,10 @@ List<Garantia> listaAmparo = bLEstudiosPrevios.obtenerAmparo(request);
 	});
 	
 	$("#deloblInterventor").on('click',function(event) {
+		alert("A....");
+		//$("#deloblInterventor").parent().parent().parent().remove();
 		
-		$("#deloblInterventor").parent().parent().parent().remove();
+		$("deloblInterventor").parents("div.row").css({"color": "blue", "border": "2px solid blue"});
 		
 		event.preventDefault();		  
 					  
