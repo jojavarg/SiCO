@@ -69,7 +69,7 @@ List<Garantia> listaAmparo = bLEstudiosPrevios.obtenerAmparo(request);
 			<div class="form-group">
 				<label for="linea">Linea Plan de Contratación</label>
 				<select class="form-control" id="linea" >
-					<option value="0">--Seleccione uno --</option>
+					<option value="0">--Seleccione uno --</option> 
 				<%
 				int x=1;
 					if(listaPlan.size() > 0 && listaPlan != null){
